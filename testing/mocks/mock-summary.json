@@ -3,5 +3,5 @@
   "status" : "MOCK_API_UNAVAILABLE",
   "message" : "mock server list API returned HTTP 401",
   "endpointCount" : 0,
-  "generatedAt" : "2026-09-27T01:39:21.727882780Z"
+  "generatedAt" : "2026-09-27T01:42:53.253665456Z"
 }
