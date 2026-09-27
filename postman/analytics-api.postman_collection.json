@@ -1,0 +1,854 @@
+{
+  "info" : {
+    "name" : "analytics-api Postman Collection",
+    "description" : "Insights and metrics aggregation service. Collects data from Enhancement, \nAssessment, and Scheduler services to provide real-time dashboards, \ntrend analysis, and productivity reports.\n\n\nOpenAPI version: 1.0.0",
+    "schema" : "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth" : {
+    "type" : "bearer",
+    "bearer" : [ {
+      "key" : "token",
+      "value" : "{{accessToken}}",
+      "type" : "string"
+    } ]
+  },
+  "variable" : [ {
+    "key" : "baseUrl",
+    "value" : "https://analytics.forgesphere.lightning.com/v1",
+    "type" : "string",
+    "description" : "Override with the base URL of the deployed Apigee proxy."
+  }, {
+    "key" : "accessToken",
+    "value" : "",
+    "type" : "string"
+  }, {
+    "key" : "timeRange",
+    "value" : "",
+    "type" : "string",
+    "description" : "Time range for the aggregate data."
+  }, {
+    "key" : "startDate",
+    "value" : "",
+    "type" : "string",
+    "description" : "ISO date (YYYY-MM-DD) for the start of the range."
+  }, {
+    "key" : "endDate",
+    "value" : "",
+    "type" : "string",
+    "description" : "ISO date (YYYY-MM-DD) for the end of the range."
+  }, {
+    "key" : "groupBy",
+    "value" : "",
+    "type" : "string",
+    "description" : "Grouping strategy for the data."
+  }, {
+    "key" : "limit",
+    "value" : "",
+    "type" : "string",
+    "description" : "Number of top fixes to return."
+  }, {
+    "key" : "severity",
+    "value" : "",
+    "type" : "string",
+    "description" : "Filter by violation severity."
+  }, {
+    "key" : "minComplianceScore",
+    "value" : "",
+    "type" : "string",
+    "description" : "Filter services by minimum compliance score."
+  }, {
+    "key" : "metric",
+    "value" : "",
+    "type" : "string",
+    "description" : "Which metric to plot over time."
+  }, {
+    "key" : "interval",
+    "value" : "",
+    "type" : "string",
+    "description" : "Time interval between data points."
+  }, {
+    "key" : "days",
+    "value" : "",
+    "type" : "string",
+    "description" : "Number of days to look back."
+  }, {
+    "key" : "reportId",
+    "value" : "",
+    "type" : "string"
+  } ],
+  "item" : [ {
+    "name" : "Get system-wide summary for the home dashboard",
+    "request" : {
+      "method" : "GET",
+      "description" : "Get system-wide summary for the home dashboard\n\nResponses:\n- 200: Global overview metrics.\n- 500: Unexpected error while fetching metrics or generating reports.",
+      "header" : [ ],
+      "url" : {
+        "raw" : "{{baseUrl}}/dashboard/overview?timeRange={{timeRange}}",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "dashboard", "overview" ],
+        "query" : [ {
+          "key" : "timeRange",
+          "value" : "LAST_HOUR",
+          "disabled" : true,
+          "description" : "Time range for the aggregate data."
+        } ]
+      }
+    },
+    "response" : [ {
+      "name" : "200 Global overview metrics.",
+      "originalRequest" : {
+        "method" : "GET",
+        "description" : "Get system-wide summary for the home dashboard\n\nResponses:\n- 200: Global overview metrics.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/dashboard/overview?timeRange={{timeRange}}",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "dashboard", "overview" ],
+          "query" : [ {
+            "key" : "timeRange",
+            "value" : "LAST_HOUR",
+            "disabled" : true,
+            "description" : "Time range for the aggregate data."
+          } ]
+        }
+      },
+      "status" : "Global overview metrics.",
+      "code" : 200,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"totalEnhancements\":125,\"totalAssessments\":87,\"activeQueueDepth\":4,\"overallSuccessRate\":82.5,\"avgBuildDuration\":45,\"totalViolationsFixed\":342}"
+    }, {
+      "name" : "500 Unexpected error while fetching metrics or generating reports.",
+      "originalRequest" : {
+        "method" : "GET",
+        "description" : "Get system-wide summary for the home dashboard\n\nResponses:\n- 200: Global overview metrics.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/dashboard/overview?timeRange={{timeRange}}",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "dashboard", "overview" ],
+          "query" : [ {
+            "key" : "timeRange",
+            "value" : "LAST_HOUR",
+            "disabled" : true,
+            "description" : "Time range for the aggregate data."
+          } ]
+        }
+      },
+      "status" : "Unexpected error while fetching metrics or generating reports.",
+      "code" : 500,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+    } ]
+  }, {
+    "name" : "Get detailed metrics for enhancement runs",
+    "request" : {
+      "method" : "GET",
+      "description" : "Get detailed metrics for enhancement runs\n\nResponses:\n- 200: Enhancement metrics data.\n- 500: Unexpected error while fetching metrics or generating reports.",
+      "header" : [ ],
+      "url" : {
+        "raw" : "{{baseUrl}}/metrics/enhancements?startDate={{startDate}}&endDate={{endDate}}&groupBy={{groupBy}}",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "metrics", "enhancements" ],
+        "query" : [ {
+          "key" : "startDate",
+          "value" : "2026-01-01",
+          "disabled" : true,
+          "description" : "ISO date (YYYY-MM-DD) for the start of the range."
+        }, {
+          "key" : "endDate",
+          "value" : "2026-01-01",
+          "disabled" : true,
+          "description" : "ISO date (YYYY-MM-DD) for the end of the range."
+        }, {
+          "key" : "groupBy",
+          "value" : "DAILY",
+          "disabled" : true,
+          "description" : "Grouping strategy for the data."
+        } ]
+      }
+    },
+    "response" : [ {
+      "name" : "200 Enhancement metrics data.",
+      "originalRequest" : {
+        "method" : "GET",
+        "description" : "Get detailed metrics for enhancement runs\n\nResponses:\n- 200: Enhancement metrics data.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/metrics/enhancements?startDate={{startDate}}&endDate={{endDate}}&groupBy={{groupBy}}",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "metrics", "enhancements" ],
+          "query" : [ {
+            "key" : "startDate",
+            "value" : "2026-01-01",
+            "disabled" : true,
+            "description" : "ISO date (YYYY-MM-DD) for the start of the range."
+          }, {
+            "key" : "endDate",
+            "value" : "2026-01-01",
+            "disabled" : true,
+            "description" : "ISO date (YYYY-MM-DD) for the end of the range."
+          }, {
+            "key" : "groupBy",
+            "value" : "DAILY",
+            "disabled" : true,
+            "description" : "Grouping strategy for the data."
+          } ]
+        }
+      },
+      "status" : "Enhancement metrics data.",
+      "code" : 200,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"totalRuns\":120,\"successCount\":95,\"failureCount\":25,\"avgDurationSeconds\":60,\"runsOverTime\":[{\"date\":\"2026-01-01\",\"count\":1}],\"repositoryBreakdown\":[{\"repository\":\"payment-app\",\"runCount\":30}]}"
+    }, {
+      "name" : "500 Unexpected error while fetching metrics or generating reports.",
+      "originalRequest" : {
+        "method" : "GET",
+        "description" : "Get detailed metrics for enhancement runs\n\nResponses:\n- 200: Enhancement metrics data.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/metrics/enhancements?startDate={{startDate}}&endDate={{endDate}}&groupBy={{groupBy}}",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "metrics", "enhancements" ],
+          "query" : [ {
+            "key" : "startDate",
+            "value" : "2026-01-01",
+            "disabled" : true,
+            "description" : "ISO date (YYYY-MM-DD) for the start of the range."
+          }, {
+            "key" : "endDate",
+            "value" : "2026-01-01",
+            "disabled" : true,
+            "description" : "ISO date (YYYY-MM-DD) for the end of the range."
+          }, {
+            "key" : "groupBy",
+            "value" : "DAILY",
+            "disabled" : true,
+            "description" : "Grouping strategy for the data."
+          } ]
+        }
+      },
+      "status" : "Unexpected error while fetching metrics or generating reports.",
+      "code" : 500,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+    } ]
+  }, {
+    "name" : "Get popularity/effectiveness of fix generators",
+    "request" : {
+      "method" : "GET",
+      "description" : "Get popularity/effectiveness of fix generators\n\nResponses:\n- 200: Ranking of fix generators.\n- 500: Unexpected error while fetching metrics or generating reports.",
+      "header" : [ ],
+      "url" : {
+        "raw" : "{{baseUrl}}/metrics/enhancements/fixes?limit={{limit}}",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "metrics", "enhancements", "fixes" ],
+        "query" : [ {
+          "key" : "limit",
+          "value" : "1",
+          "disabled" : true,
+          "description" : "Number of top fixes to return."
+        } ]
+      }
+    },
+    "response" : [ {
+      "name" : "200 Ranking of fix generators.",
+      "originalRequest" : {
+        "method" : "GET",
+        "description" : "Get popularity/effectiveness of fix generators\n\nResponses:\n- 200: Ranking of fix generators.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/metrics/enhancements/fixes?limit={{limit}}",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "metrics", "enhancements", "fixes" ],
+          "query" : [ {
+            "key" : "limit",
+            "value" : "1",
+            "disabled" : true,
+            "description" : "Number of top fixes to return."
+          } ]
+        }
+      },
+      "status" : "Ranking of fix generators.",
+      "code" : 200,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "[{\"generatorName\":\"PROMETHEUS_METRICS\",\"appliedCount\":56,\"successRate\":95.8}]"
+    }, {
+      "name" : "500 Unexpected error while fetching metrics or generating reports.",
+      "originalRequest" : {
+        "method" : "GET",
+        "description" : "Get popularity/effectiveness of fix generators\n\nResponses:\n- 200: Ranking of fix generators.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/metrics/enhancements/fixes?limit={{limit}}",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "metrics", "enhancements", "fixes" ],
+          "query" : [ {
+            "key" : "limit",
+            "value" : "1",
+            "disabled" : true,
+            "description" : "Number of top fixes to return."
+          } ]
+        }
+      },
+      "status" : "Unexpected error while fetching metrics or generating reports.",
+      "code" : 500,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+    } ]
+  }, {
+    "name" : "Get metrics for assessment scans",
+    "request" : {
+      "method" : "GET",
+      "description" : "Get metrics for assessment scans\n\nResponses:\n- 200: Assessment metrics data.\n- 500: Unexpected error while fetching metrics or generating reports.",
+      "header" : [ ],
+      "url" : {
+        "raw" : "{{baseUrl}}/metrics/assessments?severity={{severity}}&minComplianceScore={{minComplianceScore}}",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "metrics", "assessments" ],
+        "query" : [ {
+          "key" : "severity",
+          "value" : "BLOCKER",
+          "disabled" : true,
+          "description" : "Filter by violation severity."
+        }, {
+          "key" : "minComplianceScore",
+          "value" : "1.5",
+          "disabled" : true,
+          "description" : "Filter services by minimum compliance score."
+        } ]
+      }
+    },
+    "response" : [ {
+      "name" : "200 Assessment metrics data.",
+      "originalRequest" : {
+        "method" : "GET",
+        "description" : "Get metrics for assessment scans\n\nResponses:\n- 200: Assessment metrics data.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/metrics/assessments?severity={{severity}}&minComplianceScore={{minComplianceScore}}",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "metrics", "assessments" ],
+          "query" : [ {
+            "key" : "severity",
+            "value" : "BLOCKER",
+            "disabled" : true,
+            "description" : "Filter by violation severity."
+          }, {
+            "key" : "minComplianceScore",
+            "value" : "1.5",
+            "disabled" : true,
+            "description" : "Filter services by minimum compliance score."
+          } ]
+        }
+      },
+      "status" : "Assessment metrics data.",
+      "code" : 200,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"totalScans\":85,\"avgComplianceScore\":74.3,\"totalViolationsFound\":1560,\"techStackDistribution\":[{\"stack\":\"JAVA_8\",\"count\":1}]}"
+    }, {
+      "name" : "500 Unexpected error while fetching metrics or generating reports.",
+      "originalRequest" : {
+        "method" : "GET",
+        "description" : "Get metrics for assessment scans\n\nResponses:\n- 200: Assessment metrics data.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/metrics/assessments?severity={{severity}}&minComplianceScore={{minComplianceScore}}",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "metrics", "assessments" ],
+          "query" : [ {
+            "key" : "severity",
+            "value" : "BLOCKER",
+            "disabled" : true,
+            "description" : "Filter by violation severity."
+          }, {
+            "key" : "minComplianceScore",
+            "value" : "1.5",
+            "disabled" : true,
+            "description" : "Filter services by minimum compliance score."
+          } ]
+        }
+      },
+      "status" : "Unexpected error while fetching metrics or generating reports.",
+      "code" : 500,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+    } ]
+  }, {
+    "name" : "Get top recurring rule violations",
+    "request" : {
+      "method" : "GET",
+      "description" : "Get top recurring rule violations\n\nResponses:\n- 200: Top violations list.\n- 500: Unexpected error while fetching metrics or generating reports.",
+      "header" : [ ],
+      "url" : {
+        "raw" : "{{baseUrl}}/metrics/assessments/violations/top?limit={{limit}}",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "metrics", "assessments", "violations", "top" ],
+        "query" : [ {
+          "key" : "limit",
+          "value" : "1",
+          "disabled" : true
+        } ]
+      }
+    },
+    "response" : [ {
+      "name" : "200 Top violations list.",
+      "originalRequest" : {
+        "method" : "GET",
+        "description" : "Get top recurring rule violations\n\nResponses:\n- 200: Top violations list.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/metrics/assessments/violations/top?limit={{limit}}",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "metrics", "assessments", "violations", "top" ],
+          "query" : [ {
+            "key" : "limit",
+            "value" : "1",
+            "disabled" : true
+          } ]
+        }
+      },
+      "status" : "Top violations list.",
+      "code" : 200,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "[{\"ruleKey\":\"GLOBAL_EXCEPTION_HANDLER\",\"count\":45,\"severity\":\"CRITICAL\"}]"
+    }, {
+      "name" : "500 Unexpected error while fetching metrics or generating reports.",
+      "originalRequest" : {
+        "method" : "GET",
+        "description" : "Get top recurring rule violations\n\nResponses:\n- 200: Top violations list.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/metrics/assessments/violations/top?limit={{limit}}",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "metrics", "assessments", "violations", "top" ],
+          "query" : [ {
+            "key" : "limit",
+            "value" : "1",
+            "disabled" : true
+          } ]
+        }
+      },
+      "status" : "Unexpected error while fetching metrics or generating reports.",
+      "code" : 500,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+    } ]
+  }, {
+    "name" : "Get time-series data for charts",
+    "request" : {
+      "method" : "GET",
+      "description" : "Get time-series data for charts\n\nResponses:\n- 200: Time-series data.\n- 500: Unexpected error while fetching metrics or generating reports.",
+      "header" : [ ],
+      "url" : {
+        "raw" : "{{baseUrl}}/trends?metric={{metric}}&interval={{interval}}&days={{days}}",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "trends" ],
+        "query" : [ {
+          "key" : "metric",
+          "value" : "JOBS_COUNT",
+          "disabled" : false,
+          "description" : "Which metric to plot over time."
+        }, {
+          "key" : "interval",
+          "value" : "HOUR",
+          "disabled" : true,
+          "description" : "Time interval between data points."
+        }, {
+          "key" : "days",
+          "value" : "1",
+          "disabled" : true,
+          "description" : "Number of days to look back."
+        } ]
+      }
+    },
+    "response" : [ {
+      "name" : "200 Time-series data.",
+      "originalRequest" : {
+        "method" : "GET",
+        "description" : "Get time-series data for charts\n\nResponses:\n- 200: Time-series data.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/trends?metric={{metric}}&interval={{interval}}&days={{days}}",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "trends" ],
+          "query" : [ {
+            "key" : "metric",
+            "value" : "JOBS_COUNT",
+            "disabled" : false,
+            "description" : "Which metric to plot over time."
+          }, {
+            "key" : "interval",
+            "value" : "HOUR",
+            "disabled" : true,
+            "description" : "Time interval between data points."
+          }, {
+            "key" : "days",
+            "value" : "1",
+            "disabled" : true,
+            "description" : "Number of days to look back."
+          } ]
+        }
+      },
+      "status" : "Time-series data.",
+      "code" : 200,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"points\":[{\"timestamp\":\"2026-01-01T00:00:00Z\",\"value\":1.5}]}"
+    }, {
+      "name" : "500 Unexpected error while fetching metrics or generating reports.",
+      "originalRequest" : {
+        "method" : "GET",
+        "description" : "Get time-series data for charts\n\nResponses:\n- 200: Time-series data.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/trends?metric={{metric}}&interval={{interval}}&days={{days}}",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "trends" ],
+          "query" : [ {
+            "key" : "metric",
+            "value" : "JOBS_COUNT",
+            "disabled" : false,
+            "description" : "Which metric to plot over time."
+          }, {
+            "key" : "interval",
+            "value" : "HOUR",
+            "disabled" : true,
+            "description" : "Time interval between data points."
+          }, {
+            "key" : "days",
+            "value" : "1",
+            "disabled" : true,
+            "description" : "Number of days to look back."
+          } ]
+        }
+      },
+      "status" : "Unexpected error while fetching metrics or generating reports.",
+      "code" : 500,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+    } ]
+  }, {
+    "name" : "Generate a comprehensive offline report",
+    "request" : {
+      "method" : "POST",
+      "description" : "Generate a comprehensive offline report\n\nResponses:\n- 202: Report generation requested.\n- 400: Invalid query parameters or request payload.\n- 500: Unexpected error while fetching metrics or generating reports.",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json",
+        "type" : "text"
+      } ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : "{\"reportType\":\"REPOSITORY_SUMMARY\",\"repositoryUrl\":\"git@github.com:forgesphere/payment-app.git\",\"startDate\":\"2026-01-01\",\"endDate\":\"2026-01-01\",\"format\":\"PDF\"}",
+        "options" : {
+          "raw" : {
+            "language" : "json"
+          }
+        }
+      },
+      "url" : {
+        "raw" : "{{baseUrl}}/reports/generate",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "reports", "generate" ]
+      }
+    },
+    "response" : [ {
+      "name" : "202 Report generation requested.",
+      "originalRequest" : {
+        "method" : "POST",
+        "description" : "Generate a comprehensive offline report\n\nResponses:\n- 202: Report generation requested.\n- 400: Invalid query parameters or request payload.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json",
+          "type" : "text"
+        } ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : "{\"reportType\":\"REPOSITORY_SUMMARY\",\"repositoryUrl\":\"git@github.com:forgesphere/payment-app.git\",\"startDate\":\"2026-01-01\",\"endDate\":\"2026-01-01\",\"format\":\"PDF\"}",
+          "options" : {
+            "raw" : {
+              "language" : "json"
+            }
+          }
+        },
+        "url" : {
+          "raw" : "{{baseUrl}}/reports/generate",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "reports", "generate" ]
+        }
+      },
+      "status" : "Report generation requested.",
+      "code" : 202,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"reportId\":\"00000000-0000-0000-0000-000000000001\",\"status\":\"QUEUED\",\"estimatedTimeSeconds\":30}"
+    }, {
+      "name" : "400 Invalid query parameters or request payload.",
+      "originalRequest" : {
+        "method" : "POST",
+        "description" : "Generate a comprehensive offline report\n\nResponses:\n- 202: Report generation requested.\n- 400: Invalid query parameters or request payload.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json",
+          "type" : "text"
+        } ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : "{\"reportType\":\"REPOSITORY_SUMMARY\",\"repositoryUrl\":\"git@github.com:forgesphere/payment-app.git\",\"startDate\":\"2026-01-01\",\"endDate\":\"2026-01-01\",\"format\":\"PDF\"}",
+          "options" : {
+            "raw" : {
+              "language" : "json"
+            }
+          }
+        },
+        "url" : {
+          "raw" : "{{baseUrl}}/reports/generate",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "reports", "generate" ]
+        }
+      },
+      "status" : "Invalid query parameters or request payload.",
+      "code" : 400,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+    }, {
+      "name" : "500 Unexpected error while fetching metrics or generating reports.",
+      "originalRequest" : {
+        "method" : "POST",
+        "description" : "Generate a comprehensive offline report\n\nResponses:\n- 202: Report generation requested.\n- 400: Invalid query parameters or request payload.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json",
+          "type" : "text"
+        } ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : "{\"reportType\":\"REPOSITORY_SUMMARY\",\"repositoryUrl\":\"git@github.com:forgesphere/payment-app.git\",\"startDate\":\"2026-01-01\",\"endDate\":\"2026-01-01\",\"format\":\"PDF\"}",
+          "options" : {
+            "raw" : {
+              "language" : "json"
+            }
+          }
+        },
+        "url" : {
+          "raw" : "{{baseUrl}}/reports/generate",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "reports", "generate" ]
+        }
+      },
+      "status" : "Unexpected error while fetching metrics or generating reports.",
+      "code" : 500,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+    } ]
+  }, {
+    "name" : "Check report generation status and download",
+    "request" : {
+      "method" : "GET",
+      "description" : "Check report generation status and download\n\nResponses:\n- 200: Report status.\n- 404: Report ID not found.\n- 500: Unexpected error while fetching metrics or generating reports.",
+      "header" : [ ],
+      "url" : {
+        "raw" : "{{baseUrl}}/reports/:reportId",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "reports", ":reportId" ],
+        "variable" : [ {
+          "key" : "reportId",
+          "value" : "00000000-0000-0000-0000-000000000001"
+        } ]
+      }
+    },
+    "response" : [ {
+      "name" : "200 Report status.",
+      "originalRequest" : {
+        "method" : "GET",
+        "description" : "Check report generation status and download\n\nResponses:\n- 200: Report status.\n- 404: Report ID not found.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/reports/:reportId",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "reports", ":reportId" ],
+          "variable" : [ {
+            "key" : "reportId",
+            "value" : "00000000-0000-0000-0000-000000000001"
+          } ]
+        }
+      },
+      "status" : "Report status.",
+      "code" : 200,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"reportId\":\"00000000-0000-0000-0000-000000000001\",\"status\":\"QUEUED\",\"downloadUrl\":\"https://storage.googleapis.com/reports/report-123.pdf?token=...\",\"expiresAt\":\"2026-01-01T00:00:00Z\",\"fileSizeBytes\":1}"
+    }, {
+      "name" : "404 Report ID not found.",
+      "originalRequest" : {
+        "method" : "GET",
+        "description" : "Check report generation status and download\n\nResponses:\n- 200: Report status.\n- 404: Report ID not found.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/reports/:reportId",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "reports", ":reportId" ],
+          "variable" : [ {
+            "key" : "reportId",
+            "value" : "00000000-0000-0000-0000-000000000001"
+          } ]
+        }
+      },
+      "status" : "Report ID not found.",
+      "code" : 404,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+    }, {
+      "name" : "500 Unexpected error while fetching metrics or generating reports.",
+      "originalRequest" : {
+        "method" : "GET",
+        "description" : "Check report generation status and download\n\nResponses:\n- 200: Report status.\n- 404: Report ID not found.\n- 500: Unexpected error while fetching metrics or generating reports.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/reports/:reportId",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "reports", ":reportId" ],
+          "variable" : [ {
+            "key" : "reportId",
+            "value" : "00000000-0000-0000-0000-000000000001"
+          } ]
+        }
+      },
+      "status" : "Unexpected error while fetching metrics or generating reports.",
+      "code" : 500,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+    } ]
+  }, {
+    "name" : "Cancel report generation",
+    "request" : {
+      "method" : "DELETE",
+      "description" : "Cancel report generation\n\nResponses:\n- 204: Report generation cancelled.\n- 404: Report ID not found.",
+      "header" : [ ],
+      "url" : {
+        "raw" : "{{baseUrl}}/reports/:reportId/cancel",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "reports", ":reportId", "cancel" ],
+        "variable" : [ {
+          "key" : "reportId",
+          "value" : "00000000-0000-0000-0000-000000000001"
+        } ]
+      }
+    },
+    "response" : [ {
+      "name" : "204 Report generation cancelled.",
+      "originalRequest" : {
+        "method" : "DELETE",
+        "description" : "Cancel report generation\n\nResponses:\n- 204: Report generation cancelled.\n- 404: Report ID not found.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/reports/:reportId/cancel",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "reports", ":reportId", "cancel" ],
+          "variable" : [ {
+            "key" : "reportId",
+            "value" : "00000000-0000-0000-0000-000000000001"
+          } ]
+        }
+      },
+      "status" : "Report generation cancelled.",
+      "code" : 204,
+      "_postman_previewlanguage" : "json",
+      "header" : [ ],
+      "body" : ""
+    }, {
+      "name" : "404 Report ID not found.",
+      "originalRequest" : {
+        "method" : "DELETE",
+        "description" : "Cancel report generation\n\nResponses:\n- 204: Report generation cancelled.\n- 404: Report ID not found.",
+        "header" : [ ],
+        "url" : {
+          "raw" : "{{baseUrl}}/reports/:reportId/cancel",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "reports", ":reportId", "cancel" ],
+          "variable" : [ {
+            "key" : "reportId",
+            "value" : "00000000-0000-0000-0000-000000000001"
+          } ]
+        }
+      },
+      "status" : "Report ID not found.",
+      "code" : 404,
+      "_postman_previewlanguage" : "json",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json"
+      } ],
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+    } ]
+  } ]
+}
