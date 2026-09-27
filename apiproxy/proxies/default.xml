@@ -184,7 +184,7 @@
 
   <!-- ═══ HTTP Proxy Connection ═════════════════════════════════════ -->
   <HTTPProxyConnection>
-    <BasePath>/v1</BasePath>
+    <BasePath>/v22</BasePath>
     <Properties/>
   </HTTPProxyConnection>
 

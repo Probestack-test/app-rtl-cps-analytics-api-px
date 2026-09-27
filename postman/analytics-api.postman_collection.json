@@ -1,7 +1,7 @@
 {
   "info" : {
     "name" : "analytics-api Postman Collection",
-    "description" : "Insights and metrics aggregation service. Collects data from Enhancement, \nAssessment, and Scheduler services to provide real-time dashboards, \ntrend analysis, and productivity reports.\n\n\nOpenAPI version: 1.0.0",
+    "description" : "Insights and metrics aggregation service. Collects data from Enhancement, \nAssessment, and Scheduler services to provide real-time dashboards, \ntrend analysis, and productivity reports.\n\n\nOpenAPI version: 2.0.0",
     "schema" : "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "auth" : {
@@ -14,7 +14,7 @@
   },
   "variable" : [ {
     "key" : "baseUrl",
-    "value" : "https://analytics.forgesphere.lightning.com/v1",
+    "value" : "https://analytics.forgesphere.lightning.com/v22",
     "type" : "string",
     "description" : "Override with the base URL of the deployed Apigee proxy."
   }, {
@@ -145,7 +145,7 @@
         "key" : "Content-Type",
         "value" : "application/json"
       } ],
-      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v22/reports/generate\"}"
     } ]
   }, {
     "name" : "Get detailed metrics for enhancement runs",
@@ -246,7 +246,7 @@
         "key" : "Content-Type",
         "value" : "application/json"
       } ],
-      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v22/reports/generate\"}"
     } ]
   }, {
     "name" : "Get popularity/effectiveness of fix generators",
@@ -317,7 +317,7 @@
         "key" : "Content-Type",
         "value" : "application/json"
       } ],
-      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v22/reports/generate\"}"
     } ]
   }, {
     "name" : "Get metrics for assessment scans",
@@ -403,7 +403,7 @@
         "key" : "Content-Type",
         "value" : "application/json"
       } ],
-      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v22/reports/generate\"}"
     } ]
   }, {
     "name" : "Get top recurring rule violations",
@@ -471,7 +471,7 @@
         "key" : "Content-Type",
         "value" : "application/json"
       } ],
-      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v22/reports/generate\"}"
     } ]
   }, {
     "name" : "Get time-series data for charts",
@@ -572,7 +572,7 @@
         "key" : "Content-Type",
         "value" : "application/json"
       } ],
-      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v22/reports/generate\"}"
     } ]
   }, {
     "name" : "Generate a comprehensive offline report",
@@ -664,7 +664,7 @@
         "key" : "Content-Type",
         "value" : "application/json"
       } ],
-      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v22/reports/generate\"}"
     }, {
       "name" : "500 Unexpected error while fetching metrics or generating reports.",
       "originalRequest" : {
@@ -697,7 +697,7 @@
         "key" : "Content-Type",
         "value" : "application/json"
       } ],
-      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v22/reports/generate\"}"
     } ]
   }, {
     "name" : "Check report generation status and download",
@@ -762,7 +762,7 @@
         "key" : "Content-Type",
         "value" : "application/json"
       } ],
-      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v22/reports/generate\"}"
     }, {
       "name" : "500 Unexpected error while fetching metrics or generating reports.",
       "originalRequest" : {
@@ -786,7 +786,7 @@
         "key" : "Content-Type",
         "value" : "application/json"
       } ],
-      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v22/reports/generate\"}"
     } ]
   }, {
     "name" : "Cancel report generation",
@@ -848,7 +848,7 @@
         "key" : "Content-Type",
         "value" : "application/json"
       } ],
-      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v1/reports/generate\"}"
+      "body" : "{\"status\":400,\"errorCode\":\"INVALID_REPORT_TYPE\",\"message\":\"Report type must be one of: REPOSITORY_SUMMARY, TEAM_PERFORMANCE...\",\"timestamp\":\"2026-01-01T00:00:00Z\",\"path\":\"/v22/reports/generate\"}"
     } ]
   } ]
 }
